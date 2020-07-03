@@ -1,0 +1,32 @@
+.Playground {
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.Sidebar {
+  width: 350px;
+  border-right: 1px solid #121212;
+}
+
+.Header {
+  padding: 20px;
+  border-bottom: 1px solid #121212;
+}
+
+.Input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.Container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,38 @@
+.Airspeed {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 125px;
+}
+
+.Overlay {
+  background: black;
+  opacity: 0.1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 5px;
+}
+
+.Tape {
+  background: #67b55d;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 120px;
+  right: 0px;
+}
+
+.Measure {
+  background: black;
+  padding: 3px;
+  color: white;
+  border: 1px solid white;
+  margin-left: 40%;
+  z-index: 1;
+}
