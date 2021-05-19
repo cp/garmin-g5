@@ -12,8 +12,8 @@ const Airspeed = () => {
     <div className="Airspeed">
       <Measure ias={ias} />
 
-      <div className="Overlay" />
-      <div className="Tape" />
+      <div className="AirspeedOverlay" />
+      <div className="AirspeedTape" />
     </div>
   );
 };

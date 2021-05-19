@@ -5,10 +5,12 @@
   bottom: 0;
   right: 0;
   left: 0;
+  background: #f3f4f6;
 }
 
 .Sidebar {
   width: 350px;
+  background: #e5e7eb;
   border-right: 1px solid #121212;
 }
 

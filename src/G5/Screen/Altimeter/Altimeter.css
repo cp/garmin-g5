@@ -1,4 +1,4 @@
-.Airspeed {
+.Altimeter {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,24 +6,25 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 105px;
+  right: 0;
+  width: 125px;
 }
 
-.AirspeedOverlay {
+.AltimeterOverlay {
   background: black;
   opacity: 0.1;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  right: 0;
   right: 5px;
 }
 
-.AirspeedTape {
+.AltimeterTape {
   background: #67b55d;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 100px;
-  right: 0px;
+  right: 120px;
+  left: 0px;
 }
