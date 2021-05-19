@@ -4,6 +4,27 @@ import G5 from "../G5";
 
 import "./Playground.css";
 
+const minIAS = 0;
+const maxIAS = 250;
+
+const parseAndValidateIAS = (value) => {
+  if (value === "") {
+    return minIAS;
+  }
+
+  const parsed = parseInt(value);
+
+  if (parsed > maxIAS) {
+    return maxIAS;
+  }
+
+  if (parsed < minIAS) {
+    return minIAS;
+  }
+
+  return parsed;
+};
+
 const Playground = () => {
   const [pitch, setPitch] = useState(0);
   const [roll, setRoll] = useState(0);
@@ -49,10 +70,10 @@ const Playground = () => {
             <div className="Control">
               <input
                 type="number"
-                min="0"
-                max="250"
+                min={minIAS.toString()}
+                max={maxIAS.toString()}
                 value={ias}
-                onChange={(e) => setIAS(parseInt(e.target.value))}
+                onChange={(e) => setIAS(parseAndValidateIAS(e.target.value))}
               />
             </div>
           </div>
