@@ -25,16 +25,27 @@ const parseAndValidateIAS = (value) => {
   return parsed;
 };
 
+const defaultValues = {
+  pitch: 0,
+  roll: 0,
+  ias: 0,
+};
+
 const Playground = () => {
-  const [pitch, setPitch] = useState(0);
-  const [roll, setRoll] = useState(0);
-  const [ias, setIAS] = useState(0);
+  const [pitch, setPitch] = useState(defaultValues.pitch);
+  const [roll, setRoll] = useState(defaultValues.roll);
+  const [ias, setIAS] = useState(defaultValues.ias);
+
+  const resetValues = () => {
+    setPitch(defaultValues.pitch);
+    setRoll(defaultValues.roll);
+    setIAS(defaultValues.ias);
+  };
 
   return (
     <div className="Playground">
       <div className="Sidebar">
         <div className="Header">Garmin G5</div>
-
         <div className="Inputs">
           <div className="Input">
             <div className="Label">Pitch</div>
@@ -77,6 +88,12 @@ const Playground = () => {
               />
             </div>
           </div>
+        </div>
+
+        <div className="SidebarActions">
+          <button className="Reset" onClick={() => resetValues()}>
+            Reset values
+          </button>
         </div>
       </div>
 
