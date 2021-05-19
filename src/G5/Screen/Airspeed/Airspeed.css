@@ -27,12 +27,3 @@
   left: 120px;
   right: 0px;
 }
-
-.Measure {
-  background: black;
-  padding: 3px;
-  color: white;
-  border: 1px solid white;
-  margin-left: 40%;
-  z-index: 1;
-}

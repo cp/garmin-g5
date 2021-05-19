@@ -1,0 +1,41 @@
+.Measure {
+  background: black;
+  padding: 3px;
+  color: white;
+  border: 1px solid white;
+  margin-left: 25%;
+  margin-right: 10%;
+  z-index: 1;
+  position: relative;
+  height: 32px;
+}
+
+.MeasureInner {
+  background: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.Digits {
+  display: flex;
+  z-index: 10;
+}
+
+.Caret {
+  background: black;
+  border: 1px solid white;
+  width: 10px;
+  height: 12px;
+  position: absolute;
+  right: -5px;
+  top: 13px;
+  transform: rotate(50deg);
+}
+
+.Digit {
+  flex: 1;
+  font-size: 32px;
+}
