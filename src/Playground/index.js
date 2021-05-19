@@ -4,6 +4,9 @@ import G5 from "../G5";
 
 import "./Playground.css";
 
+const minAltitude = 0;
+const maxAltitude = 20000;
+
 const minIAS = 0;
 const maxIAS = 250;
 
@@ -25,21 +28,42 @@ const parseAndValidateIAS = (value) => {
   return parsed;
 };
 
+const parseAndValidateAltitude = (value) => {
+  if (value === "") {
+    return minAltitude;
+  }
+
+  const parsed = parseInt(value);
+
+  if (parsed > maxAltitude) {
+    return maxAltitude;
+  }
+
+  if (parsed < minAltitude) {
+    return minAltitude;
+  }
+
+  return parsed;
+};
+
 const defaultValues = {
+  altitude: 0,
+  ias: 0,
   pitch: 0,
   roll: 0,
-  ias: 0,
 };
 
 const Playground = () => {
+  const [altitude, setAltitude] = useState(defaultValues.altitude);
+  const [ias, setIAS] = useState(defaultValues.ias);
   const [pitch, setPitch] = useState(defaultValues.pitch);
   const [roll, setRoll] = useState(defaultValues.roll);
-  const [ias, setIAS] = useState(defaultValues.ias);
 
   const resetValues = () => {
+    setAltitude(defaultValues.altitude);
+    setIAS(defaultValues.ias);
     setPitch(defaultValues.pitch);
     setRoll(defaultValues.roll);
-    setIAS(defaultValues.ias);
   };
 
   return (
@@ -88,6 +112,22 @@ const Playground = () => {
               />
             </div>
           </div>
+
+          <div className="Input">
+            <div className="Label">Altitude</div>
+
+            <div className="Control">
+              <input
+                type="number"
+                min={minAltitude.toString()}
+                max={maxAltitude.toString()}
+                value={altitude}
+                onChange={(e) =>
+                  setAltitude(parseAndValidateAltitude(e.target.value))
+                }
+              />
+            </div>
+          </div>
         </div>
 
         <div className="SidebarActions">
@@ -98,7 +138,7 @@ const Playground = () => {
       </div>
 
       <div className="Container">
-        <G5 pitch={pitch} roll={roll} ias={ias} />
+        <G5 pitch={pitch} roll={roll} ias={ias} altitude={altitude} />
       </div>
     </div>
   );
