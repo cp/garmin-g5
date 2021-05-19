@@ -1,22 +1,20 @@
 {
   "files": {
-    "main.css": "/garmin-g5/static/css/main.5b38e2e3.chunk.css",
-    "main.js": "/garmin-g5/static/js/main.64101d60.chunk.js",
-    "main.js.map": "/garmin-g5/static/js/main.64101d60.chunk.js.map",
-    "runtime-main.js": "/garmin-g5/static/js/runtime-main.82e5e1de.js",
-    "runtime-main.js.map": "/garmin-g5/static/js/runtime-main.82e5e1de.js.map",
-    "static/js/2.e73b49b0.chunk.js": "/garmin-g5/static/js/2.e73b49b0.chunk.js",
-    "static/js/2.e73b49b0.chunk.js.map": "/garmin-g5/static/js/2.e73b49b0.chunk.js.map",
+    "main.css": "/garmin-g5/static/css/main.f292096d.chunk.css",
+    "main.js": "/garmin-g5/static/js/main.804770e2.chunk.js",
+    "main.js.map": "/garmin-g5/static/js/main.804770e2.chunk.js.map",
+    "runtime-main.js": "/garmin-g5/static/js/runtime-main.92980e65.js",
+    "runtime-main.js.map": "/garmin-g5/static/js/runtime-main.92980e65.js.map",
+    "static/js/2.3da2f14d.chunk.js": "/garmin-g5/static/js/2.3da2f14d.chunk.js",
+    "static/js/2.3da2f14d.chunk.js.map": "/garmin-g5/static/js/2.3da2f14d.chunk.js.map",
     "index.html": "/garmin-g5/index.html",
-    "precache-manifest.61f7f9fa277052c3700a7a1ae49dae86.js": "/garmin-g5/precache-manifest.61f7f9fa277052c3700a7a1ae49dae86.js",
-    "service-worker.js": "/garmin-g5/service-worker.js",
-    "static/css/main.5b38e2e3.chunk.css.map": "/garmin-g5/static/css/main.5b38e2e3.chunk.css.map",
-    "static/js/2.e73b49b0.chunk.js.LICENSE.txt": "/garmin-g5/static/js/2.e73b49b0.chunk.js.LICENSE.txt"
+    "static/css/main.f292096d.chunk.css.map": "/garmin-g5/static/css/main.f292096d.chunk.css.map",
+    "static/js/2.3da2f14d.chunk.js.LICENSE.txt": "/garmin-g5/static/js/2.3da2f14d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.82e5e1de.js",
-    "static/js/2.e73b49b0.chunk.js",
-    "static/css/main.5b38e2e3.chunk.css",
-    "static/js/main.64101d60.chunk.js"
+    "static/js/runtime-main.92980e65.js",
+    "static/js/2.3da2f14d.chunk.js",
+    "static/css/main.f292096d.chunk.css",
+    "static/js/main.804770e2.chunk.js"
   ]
 }
