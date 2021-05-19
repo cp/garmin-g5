@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/garmin-g5/static/css/main.d19f9c5e.chunk.css",
-    "main.js": "/garmin-g5/static/js/main.517a2875.chunk.js",
-    "main.js.map": "/garmin-g5/static/js/main.517a2875.chunk.js.map",
+    "main.css": "/garmin-g5/static/css/main.22d54b15.chunk.css",
+    "main.js": "/garmin-g5/static/js/main.fedacb80.chunk.js",
+    "main.js.map": "/garmin-g5/static/js/main.fedacb80.chunk.js.map",
     "runtime-main.js": "/garmin-g5/static/js/runtime-main.92980e65.js",
     "runtime-main.js.map": "/garmin-g5/static/js/runtime-main.92980e65.js.map",
     "static/js/2.3da2f14d.chunk.js": "/garmin-g5/static/js/2.3da2f14d.chunk.js",
     "static/js/2.3da2f14d.chunk.js.map": "/garmin-g5/static/js/2.3da2f14d.chunk.js.map",
     "index.html": "/garmin-g5/index.html",
-    "static/css/main.d19f9c5e.chunk.css.map": "/garmin-g5/static/css/main.d19f9c5e.chunk.css.map",
+    "static/css/main.22d54b15.chunk.css.map": "/garmin-g5/static/css/main.22d54b15.chunk.css.map",
     "static/js/2.3da2f14d.chunk.js.LICENSE.txt": "/garmin-g5/static/js/2.3da2f14d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.92980e65.js",
     "static/js/2.3da2f14d.chunk.js",
-    "static/css/main.d19f9c5e.chunk.css",
-    "static/js/main.517a2875.chunk.js"
+    "static/css/main.22d54b15.chunk.css",
+    "static/js/main.fedacb80.chunk.js"
   ]
 }
