@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import InstrumentContext from "./InstrumentContext";
 import Screen from "./Screen";
+import PowerIcon from "./PowerIcon";
 import "./G5.css";
 
 const G5 = (props) => (
@@ -17,7 +18,9 @@ const G5 = (props) => (
     </div>
 
     <div className="Controls">
-      <div className="Power" />
+      <div className="Power">
+        <PowerIcon />
+      </div>
     </div>
   </div>
 );
