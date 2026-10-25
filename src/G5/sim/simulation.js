@@ -48,15 +48,11 @@ const defaultSettings = (profile) => ({
   selectedTrack: 360,
   autopilot: false,
   apModes: null,
-  brightness: 0.85,
+  brightness: 1,
   brightnessAuto: false,
   menu: null,
   menuIndex: 0,
   input: { pitch: 0, roll: 0, power: 0.65 },
-  override: false,
-  overrideValues: { ias: 110, altitude: 3000, pitch: 0, roll: 0 },
-  overlay: false,
-  overlayOpacity: 0.5,
   profile,
 });
 
@@ -165,18 +161,7 @@ export const createSimulation = (profile = defaultProfile) => {
       selectedTrack: settings.selectedTrack,
     };
 
-    if (settings.override) {
-      const override = settings.overrideValues;
-      model.ias = override.ias;
-      model.altitude = override.altitude;
-      model.pitch = override.pitch;
-      model.roll = override.roll;
-      model.vsi = 0;
-      model.iasRate = 0;
-      model.turnRate = 0;
-    } else {
-      step(model, dt, command);
-    }
+    step(model, dt, command);
 
     const modes = autopilot ? autopilot.modes : null;
     if (JSON.stringify(modes) !== JSON.stringify(settings.apModes)) {
@@ -241,10 +226,6 @@ export const createSimulation = (profile = defaultProfile) => {
 
     set: update,
     setInput: (input) => update({ input: { ...settings.input, ...input } }),
-    setOverride: (overrideValues) =>
-      update({
-        overrideValues: { ...settings.overrideValues, ...overrideValues },
-      }),
 
     powerOn,
     powerOff,

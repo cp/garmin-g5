@@ -1,8 +1,8 @@
 import React from "react";
 
 import G5 from "../G5";
+import Backdrop from "./Backdrop";
 import { useSimulation, useSettings } from "../G5/sim/SimContext";
-import { useReferenceAvailable } from "../G5/Screen/ReferenceOverlay";
 
 import "./Playground.css";
 
@@ -48,8 +48,7 @@ const Toggle = ({ label, checked, onChange }) => (
 const Playground = () => {
   const simulation = useSimulation();
   const settings = useSettings();
-  const referenceAvailable = useReferenceAvailable();
-  const { input, autopilot, override, overrideValues } = settings;
+  const { input, autopilot } = settings;
 
   const reset = () => {
     simulation.set({
@@ -57,12 +56,13 @@ const Playground = () => {
       autopilot: false,
       failed: false,
       onExternalPower: true,
-      override: false,
     });
   };
 
   return (
     <div className="Playground">
+      <Backdrop />
+
       <div className="Sidebar">
         <div className="Header">Garmin G5</div>
 
@@ -123,76 +123,6 @@ const Playground = () => {
             {!settings.onExternalPower && (
               <p className="Hint">
                 Running on the internal battery, draining at 120x.
-              </p>
-            )}
-          </div>
-
-          <div className="Group">
-            <div className="GroupTitle">Developer</div>
-            <Toggle
-              label="Direct value override"
-              checked={override}
-              onChange={(value) => simulation.set({ override: value })}
-            />
-            {override && (
-              <>
-                <Slider
-                  label="IAS"
-                  value={overrideValues.ias}
-                  min={0}
-                  max={200}
-                  onChange={(ias) => simulation.setOverride({ ias })}
-                />
-                <Slider
-                  label="Altitude"
-                  value={overrideValues.altitude}
-                  min={-1000}
-                  max={20000}
-                  step={20}
-                  onChange={(altitude) => simulation.setOverride({ altitude })}
-                />
-                <Slider
-                  label="Pitch"
-                  value={overrideValues.pitch}
-                  min={-90}
-                  max={90}
-                  onChange={(pitch) => simulation.setOverride({ pitch })}
-                />
-                <Slider
-                  label="Roll"
-                  value={overrideValues.roll}
-                  min={-180}
-                  max={180}
-                  onChange={(roll) => simulation.setOverride({ roll })}
-                />
-              </>
-            )}
-
-            {referenceAvailable ? (
-              <>
-                <Toggle
-                  label="Reference overlay"
-                  checked={settings.overlay}
-                  onChange={(value) => simulation.set({ overlay: value })}
-                />
-                {settings.overlay && (
-                  <Slider
-                    label="Opacity"
-                    value={settings.overlayOpacity}
-                    min={0}
-                    max={1}
-                    step={0.05}
-                    format={(v) => `${Math.round(v * 100)}%`}
-                    onChange={(overlayOpacity) =>
-                      simulation.set({ overlayOpacity })
-                    }
-                  />
-                )}
-              </>
-            ) : (
-              <p className="Hint">
-                Drop a photo at <code>public/reference/g5-pfd.png</code> to
-                enable the geometry overlay.
               </p>
             )}
           </div>

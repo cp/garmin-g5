@@ -1,10 +1,18 @@
 // All screen geometry lives on a 960x720 grid: the G5's real 320x240 display
 // at 3x, so the 4:3 aspect is locked and one scale factor covers every size.
 //
-// These numbers are measured, not estimated. They come from the reference
-// figures in the G5 pilot's guide (190-01112-12): the pitch ladder spacing,
-// roll arc radius, tape scales and panel positions were all read off the
-// rendered screen and converted to this grid. See reference/README.md.
+// These numbers are measured, not estimated. They were read off the reference
+// figures in the G5 pilot's guide (Garmin 190-01112-12) and converted to this
+// grid:
+//
+//   Pitch ladder      11.04 px per degree, marks every 2.5 degrees
+//   Mark half-widths  24 / 50 / 74 px at 2.5 / 5 / 10 degrees
+//   Roll arc          radius 262, centred on the aircraft symbol
+//   Airspeed tape     12 px per knot, labels every 10 kt
+//   Altitude tape     1.8 px per foot, which gives the 400 ft the guide
+//                     specifies as the amount visible at once
+//   Heading tape      15.1 px per degree
+//   Vertical speed    0.216 px per fpm, +/- 1500 fpm
 
 export const SCREEN = { width: 960, height: 720 };
 

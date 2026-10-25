@@ -154,13 +154,20 @@ const SelectedAltitude = () => {
   );
 };
 
+// The drum resolves to twenty feet, so the whole readout does.
+const roundToStep = (value) =>
+  Math.round(value / ALTIMETER.minorInterval) * ALTIMETER.minorInterval;
+
 const AltitudeReadout = ({ altitude }) => {
   const { width, height } = ALTIMETER.readout;
 
   // Everything above the last two digits is a plain number; the last two roll
   // in twenty foot steps, as they do on the real readout.
+  //
+  // Both halves have to round the same way, or the readout disagrees with
+  // itself mid-roll and shows 3000 when the aircraft is at 3098.
   const hundredsRef = useMotionText(altitude, (v) =>
-    String(Math.floor(Math.round(v) / 100)),
+    String(Math.floor(roundToStep(v) / 100)),
   );
 
   return (
@@ -183,7 +190,7 @@ const AltitudeReadout = ({ altitude }) => {
         value={altitude}
         step={20}
         cellHeight={48}
-        windowHeight={ALTIMETER.readout.height - 10}
+        windowHeight={66}
         width={92}
         clipId="g5-alt-drum"
         className="g5-readout-small"

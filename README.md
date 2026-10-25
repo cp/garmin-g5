@@ -39,8 +39,8 @@ every display size.
 `src/G5/config/layout.js` was read off the reference figures in the G5 pilot's
 guide: 11.04 grid pixels per degree of pitch, a roll arc of radius 262 centred
 on the aircraft symbol, 12 pixels per knot, 1.8 pixels per foot (which gives
-exactly the 400 feet of altitude the guide specifies). See
-`reference/README.md`.
+exactly the 400 feet of altitude the guide specifies). That file records the
+full set.
 
 **Nothing re-renders while flying.** The model ticks on motion's frame loop
 outside React and writes into motion values, which drive SVG attributes
@@ -74,14 +74,9 @@ The aircraft profile in `src/G5/config/aircraft.js` supplies the V-speeds,
 colour band boundaries and units. One C172-class profile ships; the shape is
 open for more.
 
-## Verifying it looks right
-
-The Playground has a developer overlay that lays a photograph of a real G5
-over the rendered screen at adjustable opacity, so geometry can be checked
-against the device rather than against memory. The image is Garmin's and is
-not committed -- `reference/README.md` explains where to put one.
+## Tests
 
 Automated tests cover the parts that go silently wrong rather than visibly
 wrong: tape and tick maths, colour band geometry, heading wrapping, the
 energy model and the stall, the autopilot's capture behaviour, and battery
-state. The visual layer is checked with the overlay.
+state.

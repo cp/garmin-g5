@@ -19,7 +19,6 @@ import {
   TrueAirspeed,
   TurnRate,
 } from "./layers/Bottom";
-import ReferenceOverlay from "./ReferenceOverlay";
 
 import "./Screen.css";
 
@@ -73,8 +72,6 @@ const Screen = () => {
           pointerEvents="none"
         />
       </svg>
-
-      <ReferenceOverlay />
     </div>
   );
 };

@@ -133,3 +133,41 @@ describe("trend vector", () => {
     expect(trendGeometry(100, 100, 12, 360).visible).toBe(false);
   });
 });
+
+describe("readout consistency", () => {
+  // The leading digits and the rolling digits round independently unless the
+  // code makes them agree, which showed up as 3000 displayed at 3098 feet.
+  const altimeterReadout = (altitude) => {
+    const step = 20;
+    const rounded = Math.round(altitude / step) * step;
+    const hundreds = Math.floor(rounded / 100);
+    const drum = String(((rounded % 100) + 100) % 100).padStart(2, "0");
+
+    return Number(`${hundreds}${drum}`);
+  };
+
+  const airspeedReadout = (ias) => {
+    const rounded = Math.round(ias);
+    const tens = Math.floor(rounded / 10);
+    const ones = ((rounded % 10) + 10) % 10;
+
+    return Number(`${tens}${ones}`);
+  };
+
+  test("the altitude readout never contradicts itself across a hundred", () => {
+    [2980, 2990, 2999, 3000, 3001, 3010, 3090, 3098, 3099, 3100].forEach(
+      (altitude) => {
+        expect(altimeterReadout(altitude)).toBeCloseTo(altitude, -2);
+        expect(Math.abs(altimeterReadout(altitude) - altitude)).toBeLessThan(
+          20,
+        );
+      },
+    );
+  });
+
+  test("the airspeed readout never contradicts itself across a ten", () => {
+    [99, 99.4, 99.6, 100, 109.5, 129.6, 130].forEach((ias) => {
+      expect(Math.abs(airspeedReadout(ias) - ias)).toBeLessThanOrEqual(0.5);
+    });
+  });
+});

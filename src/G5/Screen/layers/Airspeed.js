@@ -163,8 +163,10 @@ const TrendVector = ({ ias, trend }) => {
 };
 
 const AirspeedReadout = ({ ias }) => {
+  // Rounded, not truncated, so the leading digits agree with the rolling
+  // ones digit instead of reading 120 at 129.6 knots.
   const wholeRef = useMotionText(ias, (v) => {
-    const tens = Math.floor(Math.max(0, v) / 10);
+    const tens = Math.floor(Math.round(Math.max(0, v)) / 10);
 
     return tens === 0 ? "" : String(tens);
   });
