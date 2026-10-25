@@ -1,5 +1,131 @@
+@font-face {
+  font-family: "G5 Display";
+  src: url("../../fonts/roboto-condensed.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: block;
+}
+
 .Screen {
   flex-grow: 1;
   overflow: hidden;
   position: relative;
+  background: #000;
+}
+
+.ScreenSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Every label on the display. Sizes are in grid units, so they scale with
+   the instrument rather than with the browser. */
+.ScreenSvg text {
+  font-family: "G5 Display", "Roboto Condensed", "Arial Narrow", sans-serif;
+  font-weight: 500;
+  fill: #fff;
+  paint-order: stroke;
+}
+
+.g5-tape-label {
+  font-size: 46px;
+}
+
+.g5-readout {
+  font-size: 64px;
+  font-weight: 500;
+}
+
+.g5-readout-small {
+  font-size: 44px;
+}
+
+.g5-pitch-label {
+  font-size: 34px;
+}
+
+.g5-heading-label {
+  font-size: 34px;
+}
+
+.g5-heading-readout {
+  font-size: 40px;
+}
+
+.g5-vsi-label {
+  font-size: 28px;
+}
+
+.g5-bug-label {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.g5-selected,
+.g5-baro {
+  font-size: 44px;
+}
+
+.g5-value {
+  font-size: 40px;
+}
+
+.g5-value-small {
+  font-size: 32px;
+}
+
+.g5-label-small {
+  font-size: 26px;
+}
+
+.g5-units {
+  font-size: 24px;
+}
+
+.g5-units-small {
+  font-size: 20px;
+}
+
+.g5-annunciation {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.g5-flag {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.g5-splash {
+  font-size: 80px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+
+.g5-aligning {
+  font-size: 46px;
+  font-weight: 700;
+}
+
+.g5-menu-key {
+  font-size: 38px;
+}
+
+.g5-menu-title {
+  font-size: 34px;
+}
+
+.g5-menu-value {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.ReferenceOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  object-fit: fill;
 }

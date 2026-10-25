@@ -1,144 +1,212 @@
-import React, { useState } from "react";
+import React from "react";
 
 import G5 from "../G5";
+import { useSimulation, useSettings } from "../G5/sim/SimContext";
+import { useReferenceAvailable } from "../G5/Screen/ReferenceOverlay";
 
 import "./Playground.css";
 
-const minAltitude = 0;
-const maxAltitude = 20000;
+const Slider = ({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  format,
+  disabled,
+  onChange,
+}) => (
+  <label className={`Input${disabled ? " InputDisabled" : ""}`}>
+    <span className="Label">{label}</span>
+    <input
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      disabled={disabled}
+      onChange={(event) => onChange(Number(event.target.value))}
+    />
+    <span className="Value">{format ? format(value) : value}</span>
+  </label>
+);
 
-const minIAS = 0;
-const maxIAS = 250;
+const Toggle = ({ label, checked, onChange }) => (
+  <label className="Toggle">
+    <input
+      type="checkbox"
+      checked={checked}
+      onChange={(event) => onChange(event.target.checked)}
+    />
+    <span>{label}</span>
+  </label>
+);
 
-const parseAndValidateIAS = (value) => {
-  if (value === "") {
-    return minIAS;
-  }
-
-  const parsed = parseInt(value, 10);
-
-  if (parsed > maxIAS) {
-    return maxIAS;
-  }
-
-  if (parsed < minIAS) {
-    return minIAS;
-  }
-
-  return parsed;
-};
-
-const parseAndValidateAltitude = (value) => {
-  if (value === "") {
-    return minAltitude;
-  }
-
-  const parsed = parseInt(value, 10);
-
-  if (parsed > maxAltitude) {
-    return maxAltitude;
-  }
-
-  if (parsed < minAltitude) {
-    return minAltitude;
-  }
-
-  return parsed;
-};
-
-const defaultValues = {
-  altitude: 0,
-  ias: 0,
-  pitch: 0,
-  roll: 0,
-};
-
+// The sidebar flies the aircraft. Everything the real knob owns -- baro,
+// selected altitude, track bug, brightness -- is reachable only through the
+// knob, so no value has two control paths.
 const Playground = () => {
-  const [altitude, setAltitude] = useState(defaultValues.altitude);
-  const [ias, setIAS] = useState(defaultValues.ias);
-  const [pitch, setPitch] = useState(defaultValues.pitch);
-  const [roll, setRoll] = useState(defaultValues.roll);
+  const simulation = useSimulation();
+  const settings = useSettings();
+  const referenceAvailable = useReferenceAvailable();
+  const { input, autopilot, override, overrideValues } = settings;
 
-  const resetValues = () => {
-    setAltitude(defaultValues.altitude);
-    setIAS(defaultValues.ias);
-    setPitch(defaultValues.pitch);
-    setRoll(defaultValues.roll);
+  const reset = () => {
+    simulation.set({
+      input: { pitch: 0, roll: 0, power: 0.65 },
+      autopilot: false,
+      failed: false,
+      onExternalPower: true,
+      override: false,
+    });
   };
 
   return (
     <div className="Playground">
       <div className="Sidebar">
         <div className="Header">Garmin G5</div>
+
         <div className="Inputs">
-          <div className="Input">
-            <div className="Label">Pitch</div>
-
-            <div className="Control">
-              <input
-                type="range"
-                min="-30"
-                max="30"
-                value={pitch}
-                onChange={(e) => setPitch(parseInt(e.target.value, 10))}
-              />
-            </div>
+          <div className="Group">
+            <div className="GroupTitle">Flight</div>
+            <Slider
+              label="Pitch"
+              value={input.pitch}
+              min={-20}
+              max={20}
+              disabled={autopilot}
+              format={(v) => `${v}°`}
+              onChange={(pitch) => simulation.setInput({ pitch })}
+            />
+            <Slider
+              label="Bank"
+              value={input.roll}
+              min={-45}
+              max={45}
+              disabled={autopilot}
+              format={(v) => `${v}°`}
+              onChange={(roll) => simulation.setInput({ roll })}
+            />
+            <Slider
+              label="Power"
+              value={input.power}
+              min={0}
+              max={1}
+              step={0.01}
+              format={(v) => `${Math.round(v * 100)}%`}
+              onChange={(power) => simulation.setInput({ power })}
+            />
+            <Toggle
+              label="Autopilot"
+              checked={autopilot}
+              onChange={(value) => simulation.set({ autopilot: value })}
+            />
+            {autopilot && (
+              <p className="Hint">
+                Holding the selected altitude and track. Set them with the knob.
+              </p>
+            )}
           </div>
 
-          <div className="Input">
-            <div className="Label">Roll</div>
-
-            <div className="Control">
-              <input
-                type="range"
-                min="-45"
-                max="45"
-                value={roll}
-                onChange={(e) => setRoll(parseInt(e.target.value, 10))}
-              />
-            </div>
+          <div className="Group">
+            <div className="GroupTitle">System</div>
+            <Toggle
+              label="Sensor failure"
+              checked={settings.failed}
+              onChange={(value) => simulation.set({ failed: value })}
+            />
+            <Toggle
+              label="External power"
+              checked={settings.onExternalPower}
+              onChange={(value) => simulation.set({ onExternalPower: value })}
+            />
+            {!settings.onExternalPower && (
+              <p className="Hint">
+                Running on the internal battery, draining at 120x.
+              </p>
+            )}
           </div>
 
-          <div className="Input">
-            <div className="Label">Airspeed</div>
+          <div className="Group">
+            <div className="GroupTitle">Developer</div>
+            <Toggle
+              label="Direct value override"
+              checked={override}
+              onChange={(value) => simulation.set({ override: value })}
+            />
+            {override && (
+              <>
+                <Slider
+                  label="IAS"
+                  value={overrideValues.ias}
+                  min={0}
+                  max={200}
+                  onChange={(ias) => simulation.setOverride({ ias })}
+                />
+                <Slider
+                  label="Altitude"
+                  value={overrideValues.altitude}
+                  min={-1000}
+                  max={20000}
+                  step={20}
+                  onChange={(altitude) => simulation.setOverride({ altitude })}
+                />
+                <Slider
+                  label="Pitch"
+                  value={overrideValues.pitch}
+                  min={-90}
+                  max={90}
+                  onChange={(pitch) => simulation.setOverride({ pitch })}
+                />
+                <Slider
+                  label="Roll"
+                  value={overrideValues.roll}
+                  min={-180}
+                  max={180}
+                  onChange={(roll) => simulation.setOverride({ roll })}
+                />
+              </>
+            )}
 
-            <div className="Control">
-              <input
-                type="number"
-                min={minIAS.toString()}
-                max={maxIAS.toString()}
-                value={ias}
-                onChange={(e) => setIAS(parseAndValidateIAS(e.target.value))}
-              />
-            </div>
-          </div>
-
-          <div className="Input">
-            <div className="Label">Altitude</div>
-
-            <div className="Control">
-              <input
-                type="number"
-                min={minAltitude.toString()}
-                max={maxAltitude.toString()}
-                value={altitude}
-                onChange={(e) =>
-                  setAltitude(parseAndValidateAltitude(e.target.value))
-                }
-              />
-            </div>
+            {referenceAvailable ? (
+              <>
+                <Toggle
+                  label="Reference overlay"
+                  checked={settings.overlay}
+                  onChange={(value) => simulation.set({ overlay: value })}
+                />
+                {settings.overlay && (
+                  <Slider
+                    label="Opacity"
+                    value={settings.overlayOpacity}
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    format={(v) => `${Math.round(v * 100)}%`}
+                    onChange={(overlayOpacity) =>
+                      simulation.set({ overlayOpacity })
+                    }
+                  />
+                )}
+              </>
+            ) : (
+              <p className="Hint">
+                Drop a photo at <code>public/reference/g5-pfd.png</code> to
+                enable the geometry overlay.
+              </p>
+            )}
           </div>
         </div>
 
         <div className="SidebarActions">
-          <button className="Reset" onClick={() => resetValues()}>
+          <button className="Reset" onClick={reset}>
             Reset values
           </button>
         </div>
       </div>
 
       <div className="Container">
-        <G5 pitch={pitch} roll={roll} ias={ias} altitude={altitude} />
+        <G5 />
       </div>
     </div>
   );

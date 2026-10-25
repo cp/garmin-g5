@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Reference imagery for the geometry overlay is not redistributed.
+/public/reference

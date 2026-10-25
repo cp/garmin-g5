@@ -1,27 +1,20 @@
 import React from "react";
 
-import InstrumentContext from "./InstrumentContext";
+import Bezel from "./Bezel";
 import Screen from "./Screen";
-import PowerIcon from "./PowerIcon";
 
 import "./G5.css";
 
-const G5 = (props) => (
+const G5 = () => (
   <div className="G5">
     <div className="PrimaryContainer">
       <div className="Logo">GARMIN</div>
       <div className="ScreenContainer">
-        <InstrumentContext.Provider value={props}>
-          <Screen />
-        </InstrumentContext.Provider>
+        <Screen />
       </div>
     </div>
 
-    <div className="Controls">
-      <div className="Power">
-        <PowerIcon />
-      </div>
-    </div>
+    <Bezel />
   </div>
 );
 

@@ -1,14 +1,16 @@
 import React from "react";
-import "./App.css";
 
 import Playground from "./Playground";
+import { SimProvider } from "./G5/sim/SimContext";
 
-function App() {
-  return (
-    <div className="App">
+import "./App.css";
+
+const App = () => (
+  <div className="App">
+    <SimProvider>
       <Playground />
-    </div>
-  );
-}
+    </SimProvider>
+  </div>
+);
 
 export default App;
