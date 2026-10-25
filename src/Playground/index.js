@@ -15,7 +15,7 @@ const parseAndValidateIAS = (value) => {
     return minIAS;
   }
 
-  const parsed = parseInt(value);
+  const parsed = parseInt(value, 10);
 
   if (parsed > maxIAS) {
     return maxIAS;
@@ -33,7 +33,7 @@ const parseAndValidateAltitude = (value) => {
     return minAltitude;
   }
 
-  const parsed = parseInt(value);
+  const parsed = parseInt(value, 10);
 
   if (parsed > maxAltitude) {
     return maxAltitude;
@@ -80,7 +80,7 @@ const Playground = () => {
                 min="-30"
                 max="30"
                 value={pitch}
-                onChange={(e) => setPitch(parseInt(e.target.value))}
+                onChange={(e) => setPitch(parseInt(e.target.value, 10))}
               />
             </div>
           </div>
@@ -94,7 +94,7 @@ const Playground = () => {
                 min="-45"
                 max="45"
                 value={roll}
-                onChange={(e) => setRoll(parseInt(e.target.value))}
+                onChange={(e) => setRoll(parseInt(e.target.value, 10))}
               />
             </div>
           </div>
